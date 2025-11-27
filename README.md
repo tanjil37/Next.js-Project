@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Learnify - Next.js LMS (App Router)
 
-## Getting Started
+## Description
+A simple LMS demo built with Next.js (App Router) and NextAuth for authentication. Includes public pages (landing, courses, product listing/details) and protected pages (Add Product, Manage Products). Backend is a minimal Express server storing products.
 
-First, run the development server:
+## Run locally
+1. Install:
+   npm install
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Start backend:
+   npm run backend
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Start next app:
+   npm run dev
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+4. Environment:
+   Create .env.local:
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your-secret
+   GOOGLE_ID=...
+   GOOGLE_SECRET=...
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+#  Deployment notes
 
-To learn more about Next.js, take a look at the following resources:
+* Deploy Next.js to Vercel (set env vars in Vercel dashboard).
+* For the backend, you can host on Render, Railway, or Vercel serverless functions. If you keep a simple JSON file store, prefer ephemeral dev only — switch to a real DB for production (Postgres, Mongo).
+* For NextAuth Google OAuth you must register a Google app with redirect URI `https://your-deployment-url.com/api/auth/callback/google`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#  Extra polish suggestions (optional)
 
-## Deploy on Vercel
+* Add toast notifications (react-hot-toast) on success/failure.
+* Add inline validation with react-hook-form + zod.
+* Use Prisma + Postgres for persistent product storage and to integrate NextAuth adapter (for production).
+* Add unit tests for key components.
+* Add SSR for product list if SEO matters (convert the App Router component to server component which fetches from backend — already shown).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Final notes & checklist
+
+* This answer gives a complete skeleton you can implement immediately.
+* Replace placeholder env variables for Google and `NEXTAUTH_SECRET`.
+* Start backend `npm run backend` then `npm run dev` for Next app.
+* Use `ProtectedClient` for client guarded pages. If you want server-side protection (redirect before page render), we can convert those pages to server components and use `getServerSession()` / `getSession()` — I can add that if you want server-side redirect.
+
+If you want, I can now:
+
+* Generate the complete GitHub-ready repo file list with the code above placed into files (one-shot).
+* Convert client-protected pages into server-side protected routes using `getServerSession()` for App Router.
+* Add a prettier Landing page with the 7 required sections (I kept structure minimal, I can flesh out the 7 sections into full JSX).
+
+Which of those should I do next? (I’ll proceed and include the code right away — no waiting.)
